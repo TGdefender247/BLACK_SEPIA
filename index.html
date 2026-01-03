@@ -16,46 +16,30 @@ body{
   background:#000;
 }
 
-/* ================= МОБИЛКА ================= */
-/* 📱 просто яркий фон */
-@media (max-width:768px){
-  body{
-    min-height:100vh;
-    background:
-      linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.35)),
-      url("matrix-bg.png") center center / cover no-repeat;
-  }
-  .scene{display:none;}
-}
-
-/* ================= ПК / НОУТ / ПЛАНШЕТ ================= */
-@media (min-width:769px){
-  body{overflow-y:auto;}
-}
-
-/* ================= СЦЕНА ================= */
+/* ================= СЦЕНА (ДЛЯ ВСЕХ УСТРОЙСТВ) ================= */
 .scene{
   position:relative;
   width:100%;
 }
 
-/* картинка */
+/* КАРТИНКА */
+.scene picture,
 .scene img{
   width:100%;
   height:auto;
-  object-fit:contain;
   display:block;
+  object-fit:contain;
 }
 
-/* ОЧЕНЬ ЛЁГКОЕ затемнение — картинку видно */
+/* ЛЁГКИЙ ГРАДИЕНТ (НЕ ДУШИТ КАРТИНКУ) */
 .scene::after{
   content:"";
   position:absolute;
   inset:0;
   background:
     radial-gradient(ellipse at center,
-      rgba(0,0,0,.05),
-      rgba(0,0,0,.35)
+      rgba(0,0,0,.03),
+      rgba(0,0,0,.25)
     );
   pointer-events:none;
 }
@@ -68,7 +52,7 @@ body{
   transform:translateX(-50%);
   max-width:760px;
   width:100%;
-  padding:40px 16px 120px;
+  padding:40px 16px 140px;
   display:flex;
   flex-direction:column;
   gap:28px;
@@ -80,7 +64,7 @@ body{
   background:rgba(0,0,0,.55);
   border:1px solid rgba(255,210,90,.6);
   border-radius:16px;
-  padding:20px 18px;
+  padding:22px 20px;
   box-shadow:
     0 0 25px rgba(255,200,80,.45),
     inset 0 0 25px rgba(255,200,80,.15);
@@ -105,18 +89,6 @@ h1{
   text-shadow:
     0 0 4px #ffd86b,
     0 0 14px #ffb700;
-}
-
-/* ================= КРАСНЫЙ НЕОН ================= */
-.telegram-warning{
-  font-size:1.2rem;
-  font-weight:900;
-  text-transform:uppercase;
-  color:#ff4b4b;
-  text-shadow:
-    0 0 6px #ff4b4b,
-    0 0 18px #ff0000,
-    0 0 36px #b00000;
 }
 
 /* ================= КНОПКИ ================= */
@@ -145,14 +117,12 @@ button{
     0 0 36px rgba(255,183,0,.45);
   transition:.2s;
 }
-
 button:hover{
   background:rgba(255,216,107,.2);
   box-shadow:
     0 0 28px rgba(255,216,107,1),
     0 0 60px rgba(255,183,0,.85);
 }
-
 button:disabled,
 button.locked{
   opacity:.5;
@@ -161,10 +131,23 @@ button.locked{
   filter:grayscale(1);
 }
 
+/* ================= КРАСНЫЙ НЕОН (ПОД КНОПКАМИ) ================= */
+.telegram-warning{
+  margin-top:28px;
+  font-size:1.2rem;
+  font-weight:900;
+  text-transform:uppercase;
+  color:#ff4b4b;
+  text-shadow:
+    0 0 6px #ff4b4b,
+    0 0 18px #ff0000,
+    0 0 36px #b00000;
+}
+
 /* ================= СООБЩЕНИЕ ================= */
 #tg-msg{
   display:none;
-  margin-top:14px;
+  margin-top:16px;
   font-weight:900;
   color:#ff4b4b;
   text-shadow:
@@ -173,7 +156,7 @@ button.locked{
     0 0 36px #b00000;
 }
 
-/* ================= МОБИЛКА ТЕКСТ ================= */
+/* ================= МОБИЛКА ================= */
 @media (max-width:420px){
   h1{font-size:1.7rem}
   .futuristic-text{font-size:1rem}
@@ -184,9 +167,14 @@ button.locked{
 
 <body>
 
-<!-- ================= СЦЕНА (ПК / НОУТ) ================= -->
+<!-- ================= СЦЕНА С АВТОВЫБОРОМ КАРТИНКИ ================= -->
 <div class="scene">
-  <img src="matrix-bg1.png" alt="BLACK SEPIA">
+  <picture>
+    <!-- 📱 телефон -->
+    <source media="(max-width:768px)" srcset="matrix-bg.png">
+    <!-- 💻 ПК / ноут -->
+    <img src="matrix-bg1.png" alt="BLACK SEPIA">
+  </picture>
 
   <!-- ================= КОНТЕНТ ================= -->
   <div id="content">
@@ -201,18 +189,21 @@ button.locked{
 Мы идём на всех парусах — в каждую гавань, без остановок.
       </p>
     </div>
+
     <div class="panel">
+
+      <div id="container"></div>
+
       <p class="telegram-warning">
 КРИСТАЛЛ, МУР, НАТУР, КОЛЁСА, ШОКОЛАД, ПУДРА
       </p>
-
-      <div id="container"></div>
 
       <div id="tg-msg">
 ❌ Telegram Desktop не установлен<br><br>
 ⚠️ Для доступа необходимо установить Telegram Desktop<br>
 Переход через браузер запрещён
       </div>
+
     </div>
 
   </div>
