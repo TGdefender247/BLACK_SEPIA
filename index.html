@@ -7,45 +7,58 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{
-  width:100%;height:100%;
+html,body{width:100%;height:100%}
+body{
   font-family:'Share Tech Mono', monospace;
   user-select:none;
-  background:#050006;
-}
-
-/* ФОН */
-body{
-  background:#050006 url("skull-bg.png") center center / contain no-repeat fixed;
+  background:
+    radial-gradient(ellipse at top, rgba(5,0,6,.45), rgba(5,0,6,.85)),
+    url("matrix-bg.png") center center / cover no-repeat fixed;
+  color:#fff;
 }
 body::before{
-  content:"";position:fixed;inset:0;
-  background:rgba(5,0,6,.65);z-index:-1;
+  content:"";
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:-1;
 }
 
 /* КОНТЕНТ */
 #content{
-  max-width:720px;margin:auto;padding:40px 16px;
+  max-width:760px;
+  margin:auto;
+  padding:44px 16px;
   min-height:100vh;
-  display:flex;flex-direction:column;
-  justify-content:center;gap:26px;text-align:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:22px;
+  text-align:center;
 }
 
-/* ЗОЛОТОЙ НЕОН */
+.panel{
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,204,85,.35);
+  box-shadow:0 0 18px rgba(255,204,85,.12);
+  border-radius:14px;
+  padding:18px 16px;
+  backdrop-filter: blur(4px);
+}
+
+/* ТЕКСТ */
 h1,.futuristic-text{
-  color:#000;
-  text-shadow:0 0 3px #ffd86b,0 0 10px #ffb700,0 0 22px #cc8f00;
+  color:#fff;
+  text-shadow:0 0 2px rgba(255,216,107,.9),0 0 10px rgba(255,183,0,.75);
 }
-h1{font-size:1.9rem}
-.futuristic-text{font-size:1rem;line-height:1.5;white-space:pre-line}
+h1{font-size:1.95rem}
+.futuristic-text{font-size:1.02rem;line-height:1.55;white-space:pre-line}
 
-/* КРАСНЫЙ НЕОН */
 .telegram-warning{
-  font-size:1.35rem;
+  font-size:1.2rem;
   font-weight:900;
   text-transform:uppercase;
-  color:#000;
-  text-shadow:0 0 4px #ff4b4b,0 0 10px #ff0000,0 0 26px #b00000;
+  color:#fff;
+  text-shadow:0 0 3px rgba(255,75,75,.95),0 0 12px rgba(255,0,0,.65);
 }
 
 /* КНОПКИ */
@@ -53,27 +66,27 @@ h1{font-size:1.9rem}
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
-  gap:16px;
+  gap:12px;
 }
 button{
-  background:rgba(0,0,0,.55);
+  background:rgba(0,0,0,.62);
   border:2px solid #ffcc55;
-  color:#000;
-  padding:14px 36px;
-  border-radius:6px;
+  color:#fff;
+  padding:14px 20px;
+  border-radius:10px;
   cursor:pointer;
   min-width:160px;
-  font-weight:800;
-  text-shadow:0 0 3px #ffd86b,0 0 10px #ffb700;
-  box-shadow:0 0 6px #ffcc55,0 0 18px #cc8f00;
-  transition:.25s;
+  font-weight:900;
+  letter-spacing:.4px;
+  text-shadow:0 0 2px rgba(255,216,107,.85),0 0 10px rgba(255,183,0,.6);
+  box-shadow:0 0 10px rgba(255,204,85,.45),0 0 26px rgba(204,143,0,.35);
+  transition:.22s;
 }
 button:hover{
-  background:#ffcc55;
-  box-shadow:0 0 14px #ffcc55,0 0 34px #ffb700;
+  background:rgba(255,204,85,.18);
+  box-shadow:0 0 16px rgba(255,204,85,.75),0 0 34px rgba(255,183,0,.55);
 }
-button:disabled,
-button.locked{
+button:disabled,button.locked{
   opacity:.45;
   cursor:not-allowed;
   box-shadow:none!important;
@@ -83,10 +96,10 @@ button.locked{
 /* СООБЩЕНИЕ */
 #tg-msg{
   display:none;
-  margin-top:12px;
+  margin-top:8px;
   font-weight:900;
-  color:#000;
-  text-shadow:0 0 4px #ff4b4b,0 0 10px #ff0000,0 0 26px #b00000;
+  color:#fff;
+  text-shadow:0 0 3px rgba(255,75,75,.95),0 0 14px rgba(255,0,0,.65);
 }
 </style>
 </head>
@@ -94,33 +107,36 @@ button.locked{
 <body>
 
 <div id="content">
-  <h1>𝐁𝐋𝐀𝐂𝐊 𝐒𝐄𝐏𝐈𝐀</h1>
-
-  <p class="futuristic-text"> 
+  <div class="panel">
+    <h1>𝐁𝐋𝐀𝐂𝐊 𝐒𝐄𝐏𝐈𝐀</h1>
+    <p class="futuristic-text">
 Чёрный флаг уже поднят.
 Лучшее качество на нашем борту — доступно тем, кто готов взять.
 Капитан лично закрывает любые вопросы — быстро и без лишних слов.
 Для новоприбывших действуют особые условия.
-Мы идём на всех парусах — в каждую гавань, без остановок. 
-  </p>
+Мы идём на всех парусах — в каждую гавань, без остановок.
+    </p>
+  </div>
 
-  <p class="telegram-warning">
+  <div class="panel">
+    <p class="telegram-warning">
 КРИСТАЛЛ, МУР, НАТУР, КОЛЁСА, ШОКОЛАД, ПУДРА
-  </p>
+    </p>
 
-  <div id="container"></div>
+    <div id="container"></div>
 
-  <div id="tg-msg">
+    <div id="tg-msg">
 ❌ Telegram Desktop не установлен<br><br>
 ⚠️ Для доступа необходимо установить Telegram Desktop<br>
 Переход через браузер запрещён
+    </div>
   </div>
 </div>
 
 <script>
 /* =========================
    ПРОВЕРКА ПК
-   ========================= */
+========================= */
 function isDesktop(){
   const ua = navigator.userAgent.toLowerCase();
   return /(windows|mac os|linux)/.test(ua) &&
@@ -128,64 +144,77 @@ function isDesktop(){
 }
 
 /* =========================
-   ЗАЩИТА ОТ ПОВТОРНЫХ КЛИКОВ
-   ========================= */
-let GLOBAL_LOCK = false;
+   ЗАЩИТА
+========================= */
+let GLOBAL_LOCK=false;
 function lockAllButtons(){
-  document.querySelectorAll('button').forEach(btn=>{
-    btn.disabled = true;
-    btn.classList.add('locked');
+  document.querySelectorAll('button').forEach(b=>{
+    b.disabled=true;
+    b.classList.add('locked');
   });
 }
 
 /* =========================
-   СБОРКА tg://join
-   ========================= */
+   tg://join (инвайты)
+========================= */
 function buildTGJoin(inv){
   return ['t','g',':','/','/','j','o','i','n','?','i','n','v','i','t','e','='].join('')
        + inv.join('');
 }
 
 /* =========================
-   INVITE-КОДЫ (ОБНОВЛЕНЫ)
-   ========================= */
-const INVITES = {
-  // https://t.me/+O6us_fpfkitkZjVk
-  CHANNEL: ['O','6','u','s','_','f','p','f','k','i','t','k','Z','j','V','k'],
-  // https://t.me/+liIE2350Lbw2YWY8
-  CHAT:    ['l','i','I','E','2','3','5','0','L','b','w','2','Y','W','Y','8']
+   tg://resolve (НОВОСТИ)
+========================= */
+function buildTGResolve(name){
+  return ['t','g',':','/','/','r','e','s','o','l','v','e','?','d','o','m','a','i','n','='].join('')
+       + name;
+}
+
+/* =========================
+   INVITE-КОДЫ
+   (ЗАМЕНИ ЗАГЛУШКИ)
+========================= */
+const INVITES={
+  VIPCHAT:['P','U','T','_','I','N','V','I','T','E'],
+  CHAT:   ['P','U','T','_','I','N','V','I','T','E'],
+  REVIEWS:['P','U','T','_','I','N','V','I','T','E'],
+  AUCTION:['P','U','T','_','I','N','V','I','T','E'],
+  BOT:    ['P','U','T','_','I','N','V','I','T','E']
 };
 
 /* =========================
-   ОТКРЫТИЕ TELEGRAM
-   ========================= */
-function openTG(inv){
+   ОТКРЫТИЕ
+========================= */
+function openTG(link){
   if(GLOBAL_LOCK) return;
-  GLOBAL_LOCK = true;
+  GLOBAL_LOCK=true;
   lockAllButtons();
 
-  const msg = document.getElementById('tg-msg');
-  msg.style.display = 'none';
-
-  const tgLink = buildTGJoin(inv);
-  window.location.href = tgLink;
+  const msg=document.getElementById('tg-msg');
+  msg.style.display='none';
+  window.location.href=link;
 
   if(isDesktop()){
-    setTimeout(()=>{ msg.style.display='block'; },1200);
+    setTimeout(()=>msg.style.display='block',1200);
   }
 }
 
 /* =========================
-   КНОПКИ (2 ШТ.)
-   ========================= */
-const container = document.getElementById('container');
+   КНОПКИ
+========================= */
+const container=document.getElementById('container');
+
 [
-  ['КАНАЛ', INVITES.CHANNEL],
-  ['ЧАТ',   INVITES.CHAT]
-].forEach(item=>{
+  ['НОВОСТИ',  ()=>openTG(buildTGResolve('blackks75'))],
+  ['ВИП-ЧАТ',  ()=>openTG(buildTGJoin(INVITES.VIPCHAT))],
+  ['ЧАТ',      ()=>openTG(buildTGJoin(INVITES.CHAT))],
+  ['ОТЗЫВЫ',   ()=>openTG(buildTGJoin(INVITES.REVIEWS))],
+  ['АУКЦИОН',  ()=>openTG(buildTGJoin(INVITES.AUCTION))],
+  ['БОТ',      ()=>openTG(buildTGJoin(INVITES.BOT))]
+].forEach(([label,action])=>{
   const b=document.createElement('button');
-  b.textContent=item[0];
-  b.onclick=()=>openTG(item[1]);
+  b.textContent=label;
+  b.onclick=action;
   container.appendChild(b);
 });
 </script>
