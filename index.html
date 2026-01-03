@@ -8,6 +8,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%}
+
 body{
   font-family:'Share Tech Mono', monospace;
   user-select:none;
@@ -16,53 +17,34 @@ body{
   overflow-x:hidden;
 }
 
-/* =========================
-   ФОН БЕЗ ОБРЕЗАНИЙ И БЕЗ ПОЛЕЙ
-   1) blur-layer = cover (чтобы не было пустоты)
-   2) main-layer = contain (чтобы вся картинка была видна)
-========================= */
+/* ================= ФОН НА ВЕСЬ ЭКРАН ================= */
 .bg{
   position:fixed;
   inset:0;
   z-index:-2;
-  background:#050006;
 }
-
-/* Слой-заполнитель (убирает пустоты) */
-.bg .blur-layer{
-  position:absolute;
-  inset:-30px; /* запас чтобы blur не оставлял края */
-  background:url("matrix-bg.png") center center / cover no-repeat;
-  filter: blur(18px) brightness(.65) contrast(1.05);
-  transform: scale(1.08);
+.bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;          /* 🔥 БЕЗ ЧЁРНЫХ ПОЛОС */
+  object-position:center;
 }
-
-/* Затемнение для читабельности */
-.bg .shade{
+.bg::after{
+  content:"";
   position:absolute;
   inset:0;
   background:
-    radial-gradient(ellipse at top, rgba(0,0,0,.30), rgba(0,0,0,.82));
-  z-index:1;
+    radial-gradient(ellipse at center,
+      rgba(0,0,0,.25),
+      rgba(0,0,0,.85)
+    );
 }
 
-/* Главный слой (картинка целиком, без обрезаний) */
-.bg img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:contain;   /* 🔑 ВСЯ КАРТИНА ЦЕЛИКОМ */
-  object-position:center;
-  z-index:2;
-  opacity:1;
-}
-
-/* Контент */
+/* ================= КОНТЕНТ ================= */
 #content{
   max-width:760px;
   margin:0 auto;
-  padding: calc(env(safe-area-inset-top) + 32px) 16px calc(env(safe-area-inset-bottom) + 32px);
+  padding:32px 16px;
   min-height:100svh;
   display:flex;
   flex-direction:column;
@@ -71,34 +53,39 @@ body{
   text-align:center;
 }
 
-/* Панели (читаемость на любом фоне) */
+/* ПАНЕЛИ */
 .panel{
-  background:rgba(0,0,0,.62);
+  background:rgba(0,0,0,.65);
   border:1px solid rgba(255,204,85,.35);
-  box-shadow:0 0 18px rgba(255,204,85,.14);
   border-radius:14px;
   padding:18px 16px;
-  backdrop-filter: blur(4px);
+  box-shadow:0 0 18px rgba(255,204,85,.15);
 }
 
-/* Текст */
+/* ТЕКСТ */
 h1,.futuristic-text{
   color:#fff;
-  text-shadow:0 0 2px rgba(255,216,107,.95), 0 0 12px rgba(255,183,0,.75);
+  text-shadow:0 0 2px rgba(255,216,107,.95),
+              0 0 14px rgba(255,183,0,.8);
 }
-h1{font-size:1.95rem; letter-spacing:.6px}
-.futuristic-text{font-size:1.02rem; line-height:1.55; white-space:pre-line}
+h1{font-size:1.9rem;letter-spacing:.6px}
+.futuristic-text{
+  font-size:1.02rem;
+  line-height:1.55;
+  white-space:pre-line;
+}
 
-/* Красный неон */
+/* КРАСНЫЙ НЕОН */
 .telegram-warning{
   font-size:1.15rem;
   font-weight:900;
   text-transform:uppercase;
   color:#fff;
-  text-shadow:0 0 3px rgba(255,75,75,.95), 0 0 14px rgba(255,0,0,.65);
+  text-shadow:0 0 3px rgba(255,75,75,.95),
+              0 0 14px rgba(255,0,0,.7);
 }
 
-/* Кнопки */
+/* ================= КНОПКИ ================= */
 #container{
   display:flex;
   flex-wrap:wrap;
@@ -106,44 +93,46 @@ h1{font-size:1.95rem; letter-spacing:.6px}
   gap:12px;
 }
 button{
-  background:rgba(0,0,0,.68);
-  border:2px solid #ffcc55;
-  color:#fff;
-  padding:14px 22px;
-  border-radius:12px;
-  cursor:pointer;
   min-width:160px;
+  padding:14px 22px;
+  background:rgba(0,0,0,.7);
+  border:2px solid #ffcc55;
+  border-radius:12px;
+  color:#fff;
   font-weight:900;
   letter-spacing:.4px;
-  text-shadow:0 0 2px rgba(255,216,107,.9), 0 0 10px rgba(255,183,0,.65);
-  box-shadow:0 0 10px rgba(255,204,85,.45), 0 0 26px rgba(204,143,0,.35);
-  transition:.22s;
+  cursor:pointer;
+  text-shadow:0 0 2px rgba(255,216,107,.9);
+  box-shadow:0 0 10px rgba(255,204,85,.45);
+  transition:.2s;
 }
 button:hover{
-  background:rgba(255,204,85,.18);
-  box-shadow:0 0 16px rgba(255,204,85,.75), 0 0 34px rgba(255,183,0,.55);
+  background:rgba(255,204,85,.2);
+  box-shadow:0 0 18px rgba(255,204,85,.85);
 }
-button:disabled,button.locked{
+button:disabled,
+button.locked{
   opacity:.45;
   cursor:not-allowed;
   box-shadow:none!important;
   filter:grayscale(1);
 }
 
-/* Сообщение */
+/* СООБЩЕНИЕ */
 #tg-msg{
   display:none;
   margin-top:10px;
   font-weight:900;
   color:#fff;
-  text-shadow:0 0 3px rgba(255,75,75,.95), 0 0 14px rgba(255,0,0,.65);
+  text-shadow:0 0 3px rgba(255,75,75,.95),
+              0 0 14px rgba(255,0,0,.7);
 }
 
-/* Мобилка */
+/* МОБИЛКА */
 @media (max-width:420px){
-  h1{font-size:1.65rem}
+  h1{font-size:1.6rem}
   .futuristic-text{font-size:.98rem}
-  button{min-width:150px}
+  button{min-width:145px}
 }
 </style>
 </head>
@@ -151,13 +140,13 @@ button:disabled,button.locked{
 <body>
 
 <!-- ФОН -->
-<div class="bg" aria-hidden="true">
-  <div class="blur-layer"></div>
-  <div class="shade"></div>
+<div class="bg">
   <img src="matrix-bg.png" alt="">
 </div>
 
+<!-- КОНТЕНТ -->
 <div id="content">
+
   <div class="panel">
     <h1>𝐁𝐋𝐀𝐂𝐊 𝐒𝐄𝐏𝐈𝐀</h1>
     <p class="futuristic-text">
@@ -177,34 +166,42 @@ button:disabled,button.locked{
     <div id="container"></div>
 
     <div id="tg-msg">
-      ❌ Telegram Desktop не установлен<br><br>
+❌ Telegram Desktop не установлен<br><br>
 ⚠️ Для доступа необходимо установить Telegram Desktop<br>
 Переход через браузер запрещён
     </div>
   </div>
+
 </div>
 
 <script>
+/* ================= ПК ================= */
 function isDesktop(){
   const ua=navigator.userAgent.toLowerCase();
-  return /(windows|mac os|linux)/.test(ua) && !/(android|iphone|ipad)/.test(ua);
+  return /(windows|mac os|linux)/.test(ua) &&
+         !/(android|iphone|ipad)/.test(ua);
 }
 
+/* ================= ЗАЩИТА ================= */
 let GLOBAL_LOCK=false;
 function lockAllButtons(){
-  document.querySelectorAll('button').forEach(b=>{
-    b.disabled=true;
-    b.classList.add('locked');
+  document.querySelectorAll('button').forEach(btn=>{
+    btn.disabled=true;
+    btn.classList.add('locked');
   });
 }
 
+/* ================= tg:// ================= */
 function buildTGJoin(inv){
-  return ['t','g',':','/','/','j','o','i','n','?','i','n','v','i','t','e','='].join('') + inv.join('');
+  return ['t','g',':','/','/','j','o','i','n','?','i','n','v','i','t','e','='].join('')
+  + inv.join('');
 }
 function buildTGResolve(name){
-  return ['t','g',':','/','/','r','e','s','o','l','v','e','?','d','o','m','a','i','n','='].join('') + name;
+  return ['t','g',':','/','/','r','e','s','o','l','v','e','?','d','o','m','a','i','n','='].join('')
+       + name;
 }
 
+/* ================= INVITES ================= */
 const INVITES={
   VIPCHAT:['P','U','T','_','I','N','V','I','T','E'],
   CHAT:   ['P','U','T','_','I','N','V','I','T','E'],
@@ -213,6 +210,7 @@ const INVITES={
   BOT:    ['P','U','T','_','I','N','V','I','T','E']
 };
 
+/* ================= ОТКРЫТИЕ ================= */
 function openTG(link){
   if(GLOBAL_LOCK) return;
   GLOBAL_LOCK=true;
@@ -228,6 +226,7 @@ function openTG(link){
   }
 }
 
+/* ================= КНОПКИ ================= */
 const container=document.getElementById('container');
 [
   ['НОВОСТИ', ()=>openTG(buildTGResolve('blackks75'))],
@@ -236,9 +235,9 @@ const container=document.getElementById('container');
   ['ОТЗЫВЫ',  ()=>openTG(buildTGJoin(INVITES.REVIEWS))],
   ['АУКЦИОН', ()=>openTG(buildTGJoin(INVITES.AUCTION))],
   ['БОТ',     ()=>openTG(buildTGJoin(INVITES.BOT))]
-].forEach(([text,action])=>{
+].forEach(([label,action])=>{
   const b=document.createElement('button');
-  b.textContent=text;
+  b.textContent=label;
   b.onclick=action;
   container.appendChild(b);
 });
