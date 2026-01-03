@@ -2,56 +2,58 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>𝐁𝐋𝐀𝐂𝐊 𝐒𝐄𝐏𝐈𝐀</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BLACK SEPIA</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%}
+html,body{width:100%}
 
+/* ================= ОСНОВА ================= */
 body{
   font-family:'Share Tech Mono', monospace;
-  user-select:none;
   color:#fff;
   background:#050006;
-  overflow-x:hidden;
+  overflow-y:auto; /* 🔑 ПРОКРУТКА РАЗРЕШЕНА */
 }
 
-/* ================= ФОН НА ВЕСЬ ЭКРАН ================= */
-.bg{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-}
-.bg img{
+/* ================= СЦЕНА (КАРТИНКА) ================= */
+.scene{
+  position:relative;
   width:100%;
-  height:100%;
-  object-fit:cover;          /* 🔥 БЕЗ ЧЁРНЫХ ПОЛОС */
-  object-position:center;
 }
 
-/* затемнение для читаемости */
-.bg::after{
+/* картинка как КОНТЕНТ, а не фон */
+.scene picture,
+.scene img{
+  width:100%;
+  height:auto;
+  object-fit:contain; /* 🔑 НИЧЕГО НЕ РЕЖЕТ */
+  display:block;
+}
+
+/* затемнение поверх картинки */
+.scene::after{
   content:"";
   position:absolute;
   inset:0;
   background:
-    radial-gradient(ellipse at center,
-      rgba(0,0,0,.25),
-      rgba(0,0,0,.85)
-    );
+    radial-gradient(ellipse at top, rgba(0,0,0,.15), rgba(0,0,0,.85));
+  pointer-events:none;
 }
 
 /* ================= КОНТЕНТ ================= */
 #content{
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
   max-width:760px;
-  margin:0 auto;
-  padding:32px 16px;
-  min-height:100svh;
+  width:100%;
+  padding:40px 16px 120px;
   display:flex;
   flex-direction:column;
-  justify-content:center;
-  gap:22px;
+  gap:26px;
   text-align:center;
 }
 
@@ -82,7 +84,6 @@ h1{font-size:1.9rem;letter-spacing:.6px}
   font-size:1.15rem;
   font-weight:900;
   text-transform:uppercase;
-  color:#fff;
   text-shadow:0 0 3px rgba(255,75,75,.95),
               0 0 14px rgba(255,0,0,.7);
 }
@@ -141,44 +142,44 @@ button.locked{
 
 <body>
 
-<!-- ФОН (авто-выбор: телефон = matrix-bg, остальное = matrix-bg1) -->
-<div class="bg">
+<!-- ================= СЦЕНА С КАРТИНКОЙ ================= -->
+<div class="scene">
+
+  <!-- Автовыбор картинки -->
   <picture>
-    <!-- Телефоны -->
     <source media="(max-width: 768px)" srcset="matrix-bg.png">
-    <!-- Планшеты/ПК/ноутбуки -->
-    <img src="matrix-bg1.png" alt="">
+    <img src="matrix-bg1.png" alt="BLACK SEPIA">
   </picture>
-</div>
 
-<!-- КОНТЕНТ -->
-<div id="content">
+  <!-- ================= КОНТЕНТ ПОВЕРХ ================= -->
+  <div id="content">
 
-  <div class="panel">
-    <h1>𝐁𝐋𝐀𝐂𝐊 𝐒𝐄𝐏𝐈𝐀</h1>
-    <p class="futuristic-text">
+    <div class="panel">
+      <h1>BLACK SEPIA</h1>
+      <p class="futuristic-text">
 Чёрный флаг уже поднят.
 Лучшее качество на нашем борту — доступно тем, кто готов взять.
 Капитан лично закрывает любые вопросы — быстро и без лишних слов.
 Для новоприбывших действуют особые условия.
 Мы идём на всех парусах — в каждую гавань, без остановок.
-    </p>
-  </div>
+      </p>
+    </div>
 
-  <div class="panel">
-    <p class="telegram-warning">
+    <div class="panel">
+      <p class="telegram-warning">
 КРИСТАЛЛ, МУР, НАТУР, КОЛЁСА, ШОКОЛАД, ПУДРА
-    </p>
+      </p>
 
-    <div id="container"></div>
+      <div id="container"></div>
 
-    <div id="tg-msg">
+      <div id="tg-msg">
 ❌ Telegram Desktop не установлен<br><br>
 ⚠️ Для доступа необходимо установить Telegram Desktop<br>
 Переход через браузер запрещён
+      </div>
     </div>
-  </div>
 
+  </div>
 </div>
 
 <script>
@@ -188,8 +189,7 @@ function isDesktop(){
   return /(windows|mac os|linux)/.test(ua) &&
          !/(android|iphone|ipad)/.test(ua);
 }
-
-/* ================= ЗАЩИТА ================= */
+  /* ================= ЗАЩИТА ================= */
 let GLOBAL_LOCK=false;
 function lockAllButtons(){
   document.querySelectorAll('button').forEach(btn=>{
