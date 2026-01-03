@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>𝐁𝐋𝐀𝐂𝐊 𝐒𝐄𝐏𝐈𝐀</title>
+<title>BLACK SEPIA</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -13,32 +13,50 @@ html,body{width:100%}
 body{
   font-family:'Share Tech Mono', monospace;
   color:#fff;
-  background:#050006;
-  overflow-y:auto; /* 🔑 ПРОКРУТКА РАЗРЕШЕНА */
+  background:#000;
 }
 
-/* ================= СЦЕНА (КАРТИНКА) ================= */
+/* ================= МОБИЛКА ================= */
+/* 📱 просто яркий фон */
+@media (max-width:768px){
+  body{
+    min-height:100vh;
+    background:
+      linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.35)),
+      url("matrix-bg.png") center center / cover no-repeat;
+  }
+  .scene{display:none;}
+}
+
+/* ================= ПК / НОУТ / ПЛАНШЕТ ================= */
+@media (min-width:769px){
+  body{overflow-y:auto;}
+}
+
+/* ================= СЦЕНА ================= */
 .scene{
   position:relative;
   width:100%;
 }
 
-/* картинка как КОНТЕНТ, а не фон */
-.scene picture,
+/* картинка */
 .scene img{
   width:100%;
   height:auto;
-  object-fit:contain; /* 🔑 НИЧЕГО НЕ РЕЖЕТ */
+  object-fit:contain;
   display:block;
 }
 
-/* затемнение поверх картинки */
+/* ОЧЕНЬ ЛЁГКОЕ затемнение — картинку видно */
 .scene::after{
   content:"";
   position:absolute;
   inset:0;
   background:
-    radial-gradient(ellipse at top, rgba(0,0,0,.15), rgba(0,0,0,.85));
+    radial-gradient(ellipse at center,
+      rgba(0,0,0,.05),
+      rgba(0,0,0,.35)
+    );
   pointer-events:none;
 }
 
@@ -53,39 +71,52 @@ body{
   padding:40px 16px 120px;
   display:flex;
   flex-direction:column;
-  gap:26px;
+  gap:28px;
   text-align:center;
 }
 
-/* ПАНЕЛИ */
+/* ================= ПАНЕЛИ ================= */
 .panel{
-  background:rgba(0,0,0,.65);
-  border:1px solid rgba(255,204,85,.35);
-  border-radius:14px;
-  padding:18px 16px;
-  box-shadow:0 0 18px rgba(255,204,85,.15);
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,210,90,.6);
+  border-radius:16px;
+  padding:20px 18px;
+  box-shadow:
+    0 0 25px rgba(255,200,80,.45),
+    inset 0 0 25px rgba(255,200,80,.15);
 }
 
-/* ТЕКСТ */
-h1,.futuristic-text{
-  color:#fff;
-  text-shadow:0 0 2px rgba(255,216,107,.95),
-              0 0 14px rgba(255,183,0,.8);
+/* ================= НЕОН ТЕКСТ ================= */
+h1{
+  font-size:2rem;
+  letter-spacing:1px;
+  color:#ffd86b;
+  text-shadow:
+    0 0 6px #ffd86b,
+    0 0 18px #ffb700,
+    0 0 38px #ff9900;
 }
-h1{font-size:1.9rem;letter-spacing:.6px}
+
 .futuristic-text{
-  font-size:1.02rem;
-  line-height:1.55;
+  font-size:1.05rem;
+  line-height:1.6;
   white-space:pre-line;
+  color:#fff6d5;
+  text-shadow:
+    0 0 4px #ffd86b,
+    0 0 14px #ffb700;
 }
 
-/* КРАСНЫЙ НЕОН */
+/* ================= КРАСНЫЙ НЕОН ================= */
 .telegram-warning{
-  font-size:1.15rem;
+  font-size:1.2rem;
   font-weight:900;
   text-transform:uppercase;
-  text-shadow:0 0 3px rgba(255,75,75,.95),
-              0 0 14px rgba(255,0,0,.7);
+  color:#ff4b4b;
+  text-shadow:
+    0 0 6px #ff4b4b,
+    0 0 18px #ff0000,
+    0 0 36px #b00000;
 }
 
 /* ================= КНОПКИ ================= */
@@ -93,69 +124,75 @@ h1{font-size:1.9rem;letter-spacing:.6px}
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
-  gap:12px;
+  gap:14px;
 }
+
 button{
-  min-width:160px;
-  padding:14px 22px;
-  background:rgba(0,0,0,.7);
-  border:2px solid #ffcc55;
-  border-radius:12px;
+  min-width:170px;
+  padding:16px 26px;
+  background:rgba(0,0,0,.65);
+  border:2px solid #ffd86b;
+  border-radius:14px;
   color:#fff;
   font-weight:900;
-  letter-spacing:.4px;
+  letter-spacing:.6px;
   cursor:pointer;
-  text-shadow:0 0 2px rgba(255,216,107,.9);
-  box-shadow:0 0 10px rgba(255,204,85,.45);
+  text-shadow:
+    0 0 4px #ffd86b,
+    0 0 12px #ffb700;
+  box-shadow:
+    0 0 18px rgba(255,216,107,.7),
+    0 0 36px rgba(255,183,0,.45);
   transition:.2s;
 }
+
 button:hover{
-  background:rgba(255,204,85,.2);
-  box-shadow:0 0 18px rgba(255,204,85,.85);
+  background:rgba(255,216,107,.2);
+  box-shadow:
+    0 0 28px rgba(255,216,107,1),
+    0 0 60px rgba(255,183,0,.85);
 }
+
 button:disabled,
 button.locked{
-  opacity:.45;
+  opacity:.5;
   cursor:not-allowed;
   box-shadow:none!important;
   filter:grayscale(1);
 }
 
-/* СООБЩЕНИЕ */
+/* ================= СООБЩЕНИЕ ================= */
 #tg-msg{
   display:none;
-  margin-top:10px;
+  margin-top:14px;
   font-weight:900;
-  color:#fff;
-  text-shadow:0 0 3px rgba(255,75,75,.95),
-              0 0 14px rgba(255,0,0,.7);
+  color:#ff4b4b;
+  text-shadow:
+    0 0 6px #ff4b4b,
+    0 0 18px #ff0000,
+    0 0 36px #b00000;
 }
 
-/* МОБИЛКА */
+/* ================= МОБИЛКА ТЕКСТ ================= */
 @media (max-width:420px){
-  h1{font-size:1.6rem}
-  .futuristic-text{font-size:.98rem}
-  button{min-width:145px}
+  h1{font-size:1.7rem}
+  .futuristic-text{font-size:1rem}
+  button{min-width:150px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= СЦЕНА С КАРТИНКОЙ ================= -->
+<!-- ================= СЦЕНА (ПК / НОУТ) ================= -->
 <div class="scene">
+  <img src="matrix-bg1.png" alt="BLACK SEPIA">
 
-  <!-- Автовыбор картинки -->
-  <picture>
-    <source media="(max-width: 768px)" srcset="matrix-bg.png">
-    <img src="matrix-bg1.png" alt="BLACK SEPIA">
-  </picture>
-
-  <!-- ================= КОНТЕНТ ПОВЕРХ ================= -->
+  <!-- ================= КОНТЕНТ ================= -->
   <div id="content">
 
     <div class="panel">
-      <h1>𝐁𝐋𝐀𝐂𝐊 𝐒𝐄𝐏𝐈𝐀</h1>
+      <h1>BLACK SEPIA</h1>
       <p class="futuristic-text">
 Чёрный флаг уже поднят.
 Лучшее качество на нашем борту — доступно тем, кто готов взять.
@@ -164,7 +201,6 @@ button.locked{
 Мы идём на всех парусах — в каждую гавань, без остановок.
       </p>
     </div>
-
     <div class="panel">
       <p class="telegram-warning">
 КРИСТАЛЛ, МУР, НАТУР, КОЛЁСА, ШОКОЛАД, ПУДРА
@@ -183,13 +219,12 @@ button.locked{
 </div>
 
 <script>
-/* ================= ПК ================= */
 function isDesktop(){
   const ua=navigator.userAgent.toLowerCase();
   return /(windows|mac os|linux)/.test(ua) &&
          !/(android|iphone|ipad)/.test(ua);
 }
-  /* ================= ЗАЩИТА ================= */
+
 let GLOBAL_LOCK=false;
 function lockAllButtons(){
   document.querySelectorAll('button').forEach(btn=>{
@@ -198,7 +233,6 @@ function lockAllButtons(){
   });
 }
 
-/* ================= tg:// ================= */
 function buildTGJoin(inv){
   return ['t','g',':','/','/','j','o','i','n','?','i','n','v','i','t','e','='].join('')
        + inv.join('');
@@ -208,7 +242,6 @@ function buildTGResolve(name){
        + name;
 }
 
-/* ================= INVITES ================= */
 const INVITES={
   VIPCHAT:['P','U','T','_','I','N','V','I','T','E'],
   CHAT:   ['P','U','T','_','I','N','V','I','T','E'],
@@ -217,7 +250,6 @@ const INVITES={
   BOT:    ['P','U','T','_','I','N','V','I','T','E']
 };
 
-/* ================= ОТКРЫТИЕ ================= */
 function openTG(link){
   if(GLOBAL_LOCK) return;
   GLOBAL_LOCK=true;
@@ -233,7 +265,6 @@ function openTG(link){
   }
 }
 
-/* ================= КНОПКИ ================= */
 const container=document.getElementById('container');
 [
   ['НОВОСТИ', ()=>openTG(buildTGResolve('blackks75'))],
